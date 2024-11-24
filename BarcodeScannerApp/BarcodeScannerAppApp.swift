@@ -2,7 +2,7 @@
 //  BarcodeScannerAppApp.swift
 //  BarcodeScannerApp
 //
-//  Created by Didia on 24/11/2024.
+//  Created by Ahmed Nafie on 24/11/2024.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import SwiftUI
 struct BarcodeScannerAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BarCodeScannerScreen()
         }
     }
 }
