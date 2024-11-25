@@ -13,6 +13,15 @@ struct BarCodeScannerScreen: View {
             VStack {
                 Rectangle()
                     .frame(maxWidth:.infinity , maxHeight: 300 )
+                
+                Spacer().frame(height: 60)
+                Label("Scanned Barcode", image: "barcode.viewfinder")
+                    .font(.title)
+                
+                Text("Not Scanned Yet")
+                    .bold()
+                    .font(.largeTitle)
+                    .foregroundStyle(.green)
             }
             .navigationTitle("Barcode Scanner")
         }
