@@ -8,23 +8,41 @@
 import UIKit
 import AVFoundation
 
-
-protocol ScannerViewControllerDelegate: class {
-    func didFind(barcode: String)
-    func didSurface(error: CameraError)
-}
-
 final class ScannerViewController: UIViewController {
+    // MARK: Properties
+    
     let captureSession = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
     weak var scannerDelegate: ScannerViewControllerDelegate?
+    
+    // MARK: Initializer
+    
     init(scannerDelegate: ScannerViewControllerDelegate) {
         super.init(nibName: nil, bundle: nil)
         self.scannerDelegate = scannerDelegate
     }
-    
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+
+    // MARK: Life cycle Methods
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupCaptureSession()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard let previewLayer = previewLayer else {
+            scannerDelegate?.didSurface(error: .invalidDeviceInput)
+            return
+        }
+        previewLayer.frame = view.layer.bounds
+    }
+}
+
+// MARK: Private Methods
+
+extension ScannerViewController {
     private func setupCaptureSession() {
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
             scannerDelegate?.didSurface(error: .invalidDeviceInput)
@@ -64,20 +82,3 @@ final class ScannerViewController: UIViewController {
     }
 }
 
-extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        guard let object = metadataObjects.first else {
-            scannerDelegate?.didSurface(error: .invalidScannedValue)
-            return
-        }
-        guard let machineReadableobject = object as? AVMetadataMachineReadableCodeObject else {
-            scannerDelegate?.didSurface(error: .invalidScannedValue)
-            return
-        }
-        guard let barcode = machineReadableobject.stringValue else {
-            scannerDelegate?.didSurface(error: .invalidScannedValue)
-            return
-        }
-        scannerDelegate?.didFind(barcode: barcode)
-    }
-}
