@@ -27,7 +27,6 @@ struct ScannerView: UIViewControllerRepresentable {
             self.scannerView = scannerView
         }
         func didFind(barcode: String) {
-            print(barcode)
             scannerView.scannedCode = barcode
         }
         
@@ -35,8 +34,6 @@ struct ScannerView: UIViewControllerRepresentable {
             print(error.rawValue)
 
         }
-        
-        
     }
 }
 
