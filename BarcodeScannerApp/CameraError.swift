@@ -6,7 +6,7 @@
 //
 
 
-enum CameraError: String {
-    case invalidDeviceInput = "Something is wrong with the camera."
-    case invalidScannedValue = "The value scanned is not valid, This app scans EAN-8 and EAN-13."
+enum CameraError {
+    case invalidDeviceInput
+    case invalidScannedValue
 }
