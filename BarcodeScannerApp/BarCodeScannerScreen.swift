@@ -6,16 +6,7 @@
 //
 
 import SwiftUI
-struct AlertItem: Identifiable {
-    let id = UUID()
-    let title: String
-    let message: String
-    let dismissButton: Alert.Button
-}
-struct AlertContext {
-    let invalidDeviceInput = AlertItem(title: "Invalid Device Input", message: "Something is wrong with the camera.", dismissButton: .default(Text("OK")))
-    let invalidScannedValue = AlertItem(title: "Invalid Scanned Value", message: "The value scanned is not valid, This app scans EAN-8 and EAN-13.", dismissButton: .default(Text("OK")))
-}
+
 struct BarCodeScannerScreen: View {
     @State private var scannedCode = ""
     @State private var alertItem: AlertItem?
