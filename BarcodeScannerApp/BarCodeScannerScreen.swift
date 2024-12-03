@@ -19,11 +19,10 @@ struct BarCodeScannerScreen: View {
                 Spacer().frame(height: 60)
                 Label("Scanned Barcode", image: "barcode.viewfinder")
                     .font(.title)
-                
-                Text(viewModel.scannedCode.isEmpty ? "Not Scanned Yet" : viewModel.scannedCode)
+                Text(viewModel.statusText)
                     .bold()
                     .font(.largeTitle)
-                    .foregroundStyle(viewModel.scannedCode.isEmpty ? .red : .green)
+                    .foregroundStyle(viewModel.statusTextColor)
             }
             .navigationTitle("Barcode Scanner")
             .alert(item: $viewModel.alertItem) { alertItem in
