@@ -22,7 +22,7 @@ struct ScannerView: UIViewControllerRepresentable {
   
     typealias UIViewControllerType = ScannerViewController
     
-    final class Coordinator:NSObject, ScannerViewControllerDelegate {
+    final class Coordinator: NSObject, ScannerViewControllerDelegate {
         private let scannerView: ScannerView
         init(scannerView: ScannerView) {
             self.scannerView = scannerView
